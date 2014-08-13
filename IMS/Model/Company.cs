@@ -22,5 +22,6 @@ namespace Model
         public string Modified_By { get; set; }
         public Nullable<System.DateTime> Modified_Date { get; set; }
         public bool Active_ind { get; set; }
+		 public bool bctive_ind { get; set; }
     }
 }
