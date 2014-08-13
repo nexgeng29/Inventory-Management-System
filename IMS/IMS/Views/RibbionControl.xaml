@@ -1,0 +1,518 @@
+﻿<Window x:Class="IMS.Views.RibbionControl" 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+          xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" WindowState="Maximized"
+		xmlns:telerikRibbon="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.RibbonView"
+         xmlns:mdi="clr-namespace:WPF.MDI;assembly=WPF.MDI"
+        Title="Nexgen Satellite - Inventory Management System" Height="650" Width="550" Icon="/IMS;component/Resources/Images/dishFav.ico">
+    <Window.Background>
+        <ImageBrush ImageSource="/IMS;component/Resources/Images/bigstock-satellite.jpg"/>
+    </Window.Background>
+
+    <Grid x:Name="RootGrid">
+        <Grid.Resources>
+            <telerik:MetroColors x:Key="MetroColors" />
+            <SolidColorBrush x:Key="AccentBrush" telerik:MetroColors.Color="Accent" />
+            <SolidColorBrush x:Key="MainBrush" telerik:MetroColors.Color="Main" />
+            <Thickness x:Key="MenuItemSeparatorMargin">2 2 2 2</Thickness>
+            <SolidColorBrush x:Key="BasicBrush" telerik:MetroColors.Color="Basic" />
+            <Thickness x:Key="MenuTopLevelItemMargin">2</Thickness>
+            <Thickness x:Key="MenuPopupIconsSeparatorMargin">0 0 0 0</Thickness>
+            <Thickness x:Key="MenuSubItemMargin">2</Thickness>
+            <SolidColorBrush x:Key="MarkerBrush" telerik:MetroColors.Color="Marker" />
+            <SolidColorBrush x:Key="StrongBrush" telerik:MetroColors.Color="Strong" />
+            <Thickness x:Key="MenuItemPadding">6 3</Thickness>
+            <SolidColorBrush x:Key="PanelBorderBrush" Color="#FFB0B0B0" />
+   
+
+            <ControlTemplate TargetType="telerik:RadMenuItem" x:Key="SeparatorTemplate">
+                <Grid HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" HorizontalAlignment="Left"
+							Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Menu.IconColumnWidth}" />
+                    <Grid Grid.Column="1" Height="2" Margin="{StaticResource MenuItemSeparatorMargin}">
+                        <Rectangle Height="1" VerticalAlignment="Top" Fill="{StaticResource BasicBrush}" />
+                    </Grid>
+                </Grid>
+            </ControlTemplate>
+            <ControlTemplate x:Key="SubMenuItemTemplate" TargetType="telerik:RadMenuItem">
+                <Grid x:Name="RootElement">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Highlighted">
+                                <Storyboard>
+                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HighlightVisual"
+											Storyboard.TargetProperty="Visibility" Duration="0">
+                                        <DiscreteObjectKeyFrame KeyTime="0">
+                                            <DiscreteObjectKeyFrame.Value>
+                                                <Visibility>Visible</Visibility>
+                                            </DiscreteObjectKeyFrame.Value>
+                                        </DiscreteObjectKeyFrame>
+                                    </ObjectAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </VisualState>
+                            <VisualState x:Name="Disabled">
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetProperty="Opacity"
+											Storyboard.TargetName="ContentGrid" To="0.3" Duration="0:0:0" />
+                                </Storyboard>
+                            </VisualState>
+                            <VisualState x:Name="Normal" />
+                        </VisualStateGroup>
+                        <VisualStateGroup x:Name="FocusStates">
+                            <VisualState x:Name="Unfocused" />
+                            <VisualState x:Name="Focused" />
+                        </VisualStateGroup>
+                        <VisualStateGroup x:Name="CheckStates">
+                            <VisualState x:Name="Checked">
+                                <Storyboard>
+                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Tick"
+											Storyboard.TargetProperty="Visibility" Duration="0">
+                                        <DiscreteObjectKeyFrame KeyTime="0">
+                                            <DiscreteObjectKeyFrame.Value>
+                                                <Visibility>Visible</Visibility>
+                                            </DiscreteObjectKeyFrame.Value>
+                                        </DiscreteObjectKeyFrame>
+                                    </ObjectAnimationUsingKeyFrames>
+                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Icon"
+											Storyboard.TargetProperty="Visibility" Duration="0">
+                                        <DiscreteObjectKeyFrame KeyTime="0">
+                                            <DiscreteObjectKeyFrame.Value>
+                                                <Visibility>Collapsed</Visibility>
+                                            </DiscreteObjectKeyFrame.Value>
+                                        </DiscreteObjectKeyFrame>
+                                    </ObjectAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </VisualState>
+                            <VisualState x:Name="Unchecked" />
+                            <VisualState x:Name="HideIcon">
+                                <Storyboard>
+                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Icon"
+											Storyboard.TargetProperty="Visibility" Duration="0">
+                                        <DiscreteObjectKeyFrame KeyTime="0">
+                                            <DiscreteObjectKeyFrame.Value>
+                                                <Visibility>Visible</Visibility>
+                                            </DiscreteObjectKeyFrame.Value>
+                                        </DiscreteObjectKeyFrame>
+                                    </ObjectAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+							BorderThickness="{TemplateBinding BorderThickness}" />
+                    <Grid Margin="{StaticResource MenuSubItemMargin}">
+                        <Border x:Name="HighlightVisual" Visibility="Collapsed" Background="{StaticResource BasicBrush}" />
+                        <Grid x:Name="ContentGrid">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid
+									Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Menu.IconColumnWidth}">
+                                <Path x:Name="Tick" Grid.Column="0" Visibility="Collapsed" FlowDirection="LeftToRight"
+										VerticalAlignment="Center" HorizontalAlignment="Center"
+										Fill="{StaticResource MarkerBrush}"
+										Data="M 0,5.1 L 1.7,5.2 L 3.4,7.1 L 8,0.4 L 9.2,0 L 3.3,10.8 Z" />
+                                <ContentPresenter x:Name="Icon" Grid.Column="0" Margin="2"
+										Content="{TemplateBinding Icon}"
+										ContentTemplate="{TemplateBinding IconTemplate}" />
+                            </Grid>
+                            <ContentControl x:Name="Content" Grid.Column="1" FontSize="12"
+									FontFamily="Segoe UI Semibold" Margin="{TemplateBinding Padding}"
+									Foreground="{StaticResource MarkerBrush}"
+									HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+									VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+									Content="{TemplateBinding Header}"
+									ContentTemplate="{TemplateBinding HeaderTemplate}" />
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </ControlTemplate>
+            <ControlTemplate x:Key="SubMenuHeaderTemplate" TargetType="telerik:RadMenuItem">
+                <Grid x:Name="RootElement">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Highlighted">
+                                <Storyboard>
+                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HighlightVisual"
+											Storyboard.TargetProperty="Visibility" Duration="0">
+                                        <DiscreteObjectKeyFrame KeyTime="0">
+                                            <DiscreteObjectKeyFrame.Value>
+                                                <Visibility>Visible</Visibility>
+                                            </DiscreteObjectKeyFrame.Value>
+                                        </DiscreteObjectKeyFrame>
+                                    </ObjectAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </VisualState>
+                            <VisualState x:Name="Disabled">
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetProperty="Opacity"
+											Storyboard.TargetName="ContentGrid" To="0.3" Duration="0:0:0" />
+                                </Storyboard>
+                            </VisualState>
+                            <VisualState x:Name="Normal" />
+                        </VisualStateGroup>
+                        <VisualStateGroup x:Name="FocusStates">
+                            <VisualState x:Name="Unfocused" />
+                            <VisualState x:Name="Focused" />
+                        </VisualStateGroup>
+                        <VisualStateGroup x:Name="CheckStates">
+                            <VisualState x:Name="Checked">
+                                <Storyboard>
+                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Icon"
+											Storyboard.TargetProperty="Visibility" Duration="0">
+                                        <DiscreteObjectKeyFrame KeyTime="0">
+                                            <DiscreteObjectKeyFrame.Value>
+                                                <Visibility>Collapsed</Visibility>
+                                            </DiscreteObjectKeyFrame.Value>
+                                        </DiscreteObjectKeyFrame>
+                                    </ObjectAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </VisualState>
+                            <VisualState x:Name="Unchecked" />
+                            <VisualState x:Name="HideIcon" />
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+							BorderThickness="{TemplateBinding BorderThickness}" />
+                    <Grid Margin="{StaticResource MenuSubItemMargin}">
+                        <Border x:Name="HighlightVisual" Visibility="Collapsed" Background="{StaticResource BasicBrush}" />
+                        <Grid x:Name="ContentGrid">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid
+									Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Menu.IconColumnWidth}">
+                                <ContentPresenter x:Name="Icon" Margin="2" Content="{TemplateBinding Icon}"
+										ContentTemplate="{TemplateBinding IconTemplate}" />
+                            </Grid>
+                            <ContentControl x:Name="Content" Grid.Column="1" FontSize="12"
+									FontFamily="Segoe UI Semibold" Margin="{TemplateBinding Padding}"
+									Foreground="{StaticResource MarkerBrush}"
+									HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+									VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+									Content="{TemplateBinding Header}"
+									ContentTemplate="{TemplateBinding HeaderTemplate}" />
+                            <Path x:Name="ExpandIcon" Grid.Column="2"
+									Data="M137.5041,153.96936 L141.03058,157.49736 L137.50011,161.03009 z"
+									Fill="{StaticResource StrongBrush}" Stretch="Fill" Margin="4 0" Height="7.067"
+									VerticalAlignment="Center" Width="3.535" />
+                        </Grid>
+                    </Grid>
+                    <Popup x:Name="PART_Popup" HorizontalOffset="2" VerticalOffset="-2">
+                        <Grid>
+                            <Grid x:Name="PopupContentElement">
+                                <Border BorderThickness="1" BorderBrush="{StaticResource BasicBrush}"
+										Background="{StaticResource MainBrush}">
+                                    <Grid>
+                                        <Grid
+												Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Menu.IconColumnWidth}"
+												HorizontalAlignment="Left">
+                                            <Rectangle Fill="{StaticResource MainBrush}" Margin="0 0 2 0" />
+                                            <Border Width="1" HorizontalAlignment="Right" VerticalAlignment="Stretch"
+													Margin="{StaticResource MenuPopupIconsSeparatorMargin}"
+													Background="{StaticResource MainBrush}"
+													BorderBrush="{StaticResource BasicBrush}" BorderThickness="0 0 1 0" />
+                                        </Grid>
+                                        <ItemsPresenter Margin="0 1" />
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </Grid>
+                    </Popup>
+                </Grid>
+            </ControlTemplate>
+            <Style x:Key="RadMenuItemStyle" TargetType="telerik:RadMenuItem">
+                <Setter Property="Padding" Value="{StaticResource MenuItemPadding}" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderBrush" Value="{StaticResource PanelBorderBrush}" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="TopLevelHeaderTemplateKey" Value="{StaticResource SubMenuHeaderTemplate}" />
+                <Setter Property="TopLevelItemTemplateKey" Value="{StaticResource SubMenuItemTemplate}" />
+                <Setter Property="SubmenuHeaderTemplateKey" Value="{StaticResource SubMenuHeaderTemplate}" />
+                <Setter Property="SubmenuItemTemplateKey" Value="{StaticResource SubMenuItemTemplate}" />
+                <Setter Property="SeparatorTemplateKey" Value="{StaticResource SeparatorTemplate}" />
+                <Setter Property="Template" Value="{StaticResource SubMenuItemTemplate}" />
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+            </Style>
+            <Style TargetType="telerik:RadMenu">
+                <Setter Property="ItemContainerStyle" Value="{StaticResource RadMenuItemStyle}" />
+                <Setter Property="IconColumnWidth" Value="28" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Background" Value="White" />
+                <Setter Property="BorderBrush" Value="{StaticResource BasicBrush}" />
+                <Setter Property="Foreground" Value="{StaticResource MarkerBrush}" />
+                <Setter Property="Orientation" Value="Vertical" />
+                <Setter Property="ItemsPanel">
+                    <Setter.Value>
+                        <ItemsPanelTemplate>
+                            <StackPanel />
+                        </ItemsPanelTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="telerik:RadMenu">
+                            <Grid>
+                                <Grid x:Name="PopupContentElement">
+                                    <Border BorderThickness="{TemplateBinding BorderThickness}"
+											BorderBrush="{TemplateBinding BorderBrush}"
+											Background="{TemplateBinding Background}">
+                                        <Grid>
+                                            <Grid
+													Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IconColumnWidth}"
+													HorizontalAlignment="Left">
+                                                <Rectangle Fill="{TemplateBinding Background}" Margin="0 0 2 0" />
+                                                <Rectangle Width="1" HorizontalAlignment="Right"
+														Margin="{StaticResource MenuPopupIconsSeparatorMargin}"
+														Fill="{StaticResource BasicBrush}" />
+                                            </Grid>
+                                            <ItemsPresenter Margin="0 1" />
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="telerik:AnimationManager.AnimationSelector">
+                    <Setter.Value>
+                        <telerik:AnimationSelector>
+                            <telerik:SlideAnimation Direction="In" SlideMode="Top" AnimationName="Expand"
+									TargetElementName="PopupContentElement" />
+                        </telerik:AnimationSelector>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+
+            <LinearGradientBrush x:Key="DottedLineBrush" StartPoint="0,0.5" EndPoint="4,0.5" MappingMode="Absolute"
+					SpreadMethod="Repeat">
+                <GradientStop Color="#40000000" Offset="0" />
+                <GradientStop Color="#40000000" Offset="0.5" />
+                <GradientStop Color="Transparent" Offset="0.501" />
+            </LinearGradientBrush>
+            <LinearGradientBrush x:Key="VerticalSplitterBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+                <GradientStop Color="#10000000" Offset="0" />
+                <GradientStop Color="#40000000" Offset="0.15" />
+                <GradientStop Color="#40000000" Offset="0.95" />
+                <GradientStop Color="#10000000" Offset="1" />
+            </LinearGradientBrush>
+
+            <DataTemplate x:Key="RecentDocumentTemplate">
+                <telerikRibbon:RadRibbonButton Command="{Binding ElementName=UserControl, Path=Command}" Width="285">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding ImageSource}" />
+                        <StackPanel Margin="3 0 0 0" HorizontalAlignment="Left">
+                            <TextBlock Text="{Binding Header}" Margin="0 0 0 2" />
+                            <TextBlock Text="{Binding Folder}" Foreground="DimGray" />
+                        </StackPanel>
+                    </StackPanel>
+                </telerikRibbon:RadRibbonButton>
+            </DataTemplate>
+
+            <DataTemplate x:Key="AvailableTemplatesTemplate">
+                <telerikRibbon:RadRibbonButton VerticalContentAlignment="Stretch" Margin="0 5 0 0"
+						Command="{Binding ElementName=UserControl, Path=Command}">
+                    <Grid Width="80">
+                        <Grid.ColumnDefinitions>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Image Stretch="None" Source="{Binding ImageSource}" />
+                        <TextBlock TextWrapping="Wrap" TextAlignment="Center" Margin="2" Grid.Row="1"
+								Text="{Binding Header}" HorizontalAlignment="Center" />
+                    </Grid>
+                </telerikRibbon:RadRibbonButton>
+            </DataTemplate>
+
+            <DataTemplate x:Key="HelpItemTemplate">
+                <telerikRibbon:RadRibbonButton Width="470" Margin="0 5 0 0" HorizontalContentAlignment="Left"
+						Command="{Binding ElementName=UserControl, Path=Command}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Image Stretch="None" Source="{Binding ImageSource}" />
+                        <StackPanel Margin="5,0,0,0" Grid.Column="1" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding Header}" />
+                            <TextBlock Text="{Binding Description}" Foreground="DimGray" />
+                        </StackPanel>
+                    </Grid>
+                </telerikRibbon:RadRibbonButton>
+            </DataTemplate>
+        </Grid.Resources>
+        <Grid.Background>
+            <ImageBrush/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <telerikRibbon:RadRibbonView HelpButtonVisibility="Visible" x:Name="radRibbonBar1" Title="Nexgen Satellite"
+				 TitleBarVisibility="Collapsed" ApplicationButtonVisibility="Visible" Grid.Row="0"
+				MinimizeButtonVisibility="Visible" >
+            <telerik:RadRibbonView.Backstage>
+                <telerik:RadRibbonBackstage>
+                    <telerik:RadRibbonBackstageItem CloseOnClick="False" Header="General" 
+                    IsSelectable="False" />
+                    <telerik:RadRibbonBackstageItem Header="Sales"  IsSelectable="True" />
+                    <telerik:RadRibbonBackstageItem Header="Purchasing"  IsSelectable="False" />
+                    <telerik:RadRibbonBackstageItem Header="Inventory" IsGroupSeparator="True" />
+                    <telerik:RadRibbonBackstageItem Header="Reports" IsDefault="True"/>
+                    <telerik:RadRibbonBackstageItem Header="Exit"  IsSelectable="False" />
+                </telerik:RadRibbonBackstage>
+            </telerik:RadRibbonView.Backstage>
+
+
+            <telerikRibbon:RadRibbonTab Header="Home Group" Name="tabHome" telerik:KeyTipService.AccessText="C">
+                <telerikRibbon:RadRibbonGroup x:Name="grpGeneral" Header="Home Group" telerikRibbon:ScreenTip.Title="Home Group" >
+                    <telerikRibbon:RadRibbonGroup.Variants>
+                        <telerikRibbon:GroupVariant Variant="Medium" Priority="0" />
+                    </telerikRibbon:RadRibbonGroup.Variants>
+                    <telerik:RadRibbonButton Size="Large" VerticalContentAlignment="Bottom" x:Name="btnHomePage" SplitText="True" Text="Home Page" Width="Auto" Height="Auto" SmallImage="../Resources/Images/customer.jpg" LargeImage="../Resources/Images/customer.jpg"   />
+                    <telerik:RadRibbonButton Size="Large" VerticalContentAlignment="Bottom" x:Name="btnDashboard" SplitText="True" Text="Dash Board" Width="Auto" Height="Auto" SmallImage="../Resources/Images/customer.jpg" LargeImage="../Resources/Images/customer.jpg"   />
+                    
+                </telerikRibbon:RadRibbonGroup>
+
+                <telerikRibbon:RadRibbonGroup x:Name="grpBusinessPartner" Header="Business Partner Group" telerikRibbon:ScreenTip.Title="Business Partner Group" >
+                    <telerikRibbon:RadRibbonGroup.Variants>
+                        <telerikRibbon:GroupVariant Variant="Medium" Priority="0" />
+                    </telerikRibbon:RadRibbonGroup.Variants>
+                    <telerik:RadRibbonButton Size="Large" VerticalContentAlignment="Bottom" x:Name="btnCustomer" SplitText="True" Text="Customer" Width="Auto" Height="Auto" SmallImage="../Resources/Images/customer.jpg" LargeImage="../Resources/Images/customer.jpg"   />
+                    <telerik:RadRibbonButton Size="Large" VerticalContentAlignment="Bottom" x:Name="btnVendor" SplitText="True" Text="Vendor" Width="Auto" Height="Auto" SmallImage="../Resources/Images/customer.jpg" LargeImage="../Resources/Images/customer.jpg"   />
+
+                </telerikRibbon:RadRibbonGroup>
+
+            </telerikRibbon:RadRibbonTab>
+
+
+
+
+
+            <telerikRibbon:RadRibbonTab Header="Inventory Management" Name="tabIMS" telerik:KeyTipService.AccessText="C">
+              
+
+               
+                <telerikRibbon:RadRibbonGroup x:Name="grpSales" Header="Sales" telerikRibbon:ScreenTip.Title="Sales"
+						
+						DialogLauncherVisibility="Collapsed" >
+                    <telerikRibbon:RadRibbonGroup.Variants>
+                        <telerikRibbon:GroupVariant Variant="Medium" Priority="0" />
+                    </telerikRibbon:RadRibbonGroup.Variants>
+                    <telerik:RadRibbonButton Size="Large" VerticalContentAlignment="Bottom" x:Name="btnQuotes" SplitText="True" Text="New Sales Quotes" Width="Auto" Height="Auto" SmallImage="../Resources/Images/quote.png" LargeImage="../Resources/Images/quote.png"   />
+                    <telerik:RadRibbonButton Size="Large" VerticalContentAlignment="Bottom" x:Name="btnNewOrder" SplitText="True" Text="New Sales Order" Width="Auto" Height="Auto" SmallImage="../Resources/Images/sales-report-icon.png" LargeImage="../Resources/Images/sales-report-icon.png"   />
+                    <telerik:RadRibbonButton Size="Large" VerticalContentAlignment="Bottom" x:Name="btnSaleOrderList" SplitText="True" Text="Sales Order List" Width="Auto" Height="Auto" SmallImage="../Resources/Images/Inventory maintenance.png" LargeImage="../Resources/Images/Inventory maintenance.png"   />
+                    <telerik:RadRibbonButton Size="Large" VerticalContentAlignment="Bottom" x:Name="btnRecentOrders" SplitText="True" Text="Recent Orders" Width="Auto" Height="Auto" SmallImage="../Resources/Images/Inventory maintenance.png" LargeImage="../Resources/Images/Inventory maintenance.png"   />
+                    <telerik:RadRibbonButton Size="Large" VerticalContentAlignment="Bottom" x:Name="btnOpenOrders" SplitText="True" Text="Open Orders" Width="Auto" Height="Auto" SmallImage="../Resources/Images/Inventory maintenance.png" LargeImage="../Resources/Images/Inventory maintenance.png"   />
+                    <telerik:RadRibbonButton Size="Large" VerticalContentAlignment="Bottom" x:Name="btnInvoicedOrders" SplitText="True" Text="Invoiced Orders" Width="Auto" Height="Auto" SmallImage="../Resources/Images/Inventory maintenance.png" LargeImage="../Resources/Images/Inventory maintenance.png"   />
+                    <telerik:RadRibbonButton Size="Large" VerticalContentAlignment="Bottom" x:Name="btnPaidOrders" SplitText="True" Text="Paid Orders" Width="Auto" Height="Auto" SmallImage="../Resources/Images/Inventory maintenance.png" LargeImage="../Resources/Images/Inventory maintenance.png"   />
+
+                </telerikRibbon:RadRibbonGroup>
+
+                <telerikRibbon:RadRibbonGroup x:Name="grpPurchasing" Header="Purchasing" telerikRibbon:ScreenTip.Title="Purchasing"
+						
+						DialogLauncherVisibility="Collapsed" >
+                    <telerikRibbon:RadRibbonGroup.Variants>
+                        <telerikRibbon:GroupVariant Variant="Medium" Priority="0" />
+                    </telerikRibbon:RadRibbonGroup.Variants>
+                    <telerik:RadRibbonButton Size="Large" VerticalContentAlignment="Bottom" x:Name="btnPO" SplitText="True" Text="New Purcase Order" Width="Auto" Height="Auto" SmallImage="../Resources/Images/purchase-orders.png" LargeImage="../Resources/Images/purchase-orders.png"   />
+                    <telerik:RadRibbonButton Size="Large" VerticalContentAlignment="Bottom" x:Name="btnPOL" SplitText="True" Text="Purchase Order List" Width="Auto" Height="Auto" SmallImage="../Resources/Images/Inventory maintenance.png" LargeImage="../Resources/Images/Inventory maintenance.png"   />
+                    <telerik:RadRibbonButton Size="Large" VerticalContentAlignment="Bottom" x:Name="btnRPO" SplitText="True" Text="Recent Orders" Width="Auto" Height="Auto" SmallImage="../Resources/Images/Inventory maintenance.png" LargeImage="../Resources/Images/Inventory maintenance.png"   />
+                    <telerik:RadRibbonButton Size="Large" VerticalContentAlignment="Bottom" x:Name="btnOPO" SplitText="True" Text="Open Orders" Width="Auto" Height="Auto" SmallImage="../Resources/Images/Inventory maintenance.png" LargeImage="../Resources/Images/Inventory maintenance.png"   />
+                    <telerik:RadRibbonButton Size="Large" VerticalContentAlignment="Bottom" x:Name="btnRecievePO" SplitText="True" Text="Received Orders" Width="Auto" Height="Auto" SmallImage="../Resources/Images/Inventory maintenance.png" LargeImage="../Resources/Images/Inventory maintenance.png"   />
+                    <telerik:RadRibbonButton Size="Large" VerticalContentAlignment="Bottom" x:Name="btnPaidPO" SplitText="True" Text="Paid Orders" Width="Auto" Height="Auto" SmallImage="../Resources/Images/Inventory maintenance.png" LargeImage="../Resources/Images/Inventory maintenance.png"   />
+
+
+                </telerikRibbon:RadRibbonGroup>
+
+
+                <telerikRibbon:RadRibbonGroup x:Name="Customergroup" Header="Inventory" telerikRibbon:ScreenTip.Title="Inventory"
+						telerikRibbon:ScreenTip.Description="Inventory..."
+						DialogLauncherVisibility="Collapsed" >
+                    <telerikRibbon:RadRibbonGroup.Variants>
+                        <telerikRibbon:GroupVariant Variant="Medium" Priority="0" />
+                    </telerikRibbon:RadRibbonGroup.Variants>
+                   <telerik:RadRibbonButton Size="Large" VerticalContentAlignment="Bottom" x:Name="btnProductPricing" SplitText="True" Text="Product Pricing" Width="Auto" Height="Auto" SmallImage="../Resources/Images/customer.jpg" LargeImage="../Resources/Images/customer.jpg"   />
+                    <telerik:RadRibbonButton Size="Large" VerticalContentAlignment="Bottom" x:Name="btnCurrentStock" SplitText="True" Text="Current Stock" Width="Auto" Height="Auto" SmallImage="../Resources/Images/customer.jpg" LargeImage="../Resources/Images/customer.jpg"   />
+                    <telerik:RadRibbonButton Size="Large" VerticalContentAlignment="Bottom" x:Name="btnAdjustStock" SplitText="True" Text="Adjust Stock" Width="Auto" Height="Auto" SmallImage="../Resources/Images/customer.jpg" LargeImage="../Resources/Images/customer.jpg"   />
+
+                </telerikRibbon:RadRibbonGroup>
+
+
+            </telerikRibbon:RadRibbonTab>
+
+
+
+            <telerikRibbon:RadRibbonTab Header="Recharge" Name="TabRecharge" telerik:KeyTipService.AccessText="C">
+                <telerikRibbon:RadRibbonGroup x:Name="rechargeGroup" Header="Recharges" telerikRibbon:ScreenTip.Title="Recharges"
+						
+						DialogLauncherVisibility="Collapsed" >
+                    <telerikRibbon:RadRibbonGroup.Variants>
+                        <telerikRibbon:GroupVariant Variant="Medium" Priority="0" />
+                    </telerikRibbon:RadRibbonGroup.Variants>
+                    <telerik:RadRibbonButton Size="Large" VerticalContentAlignment="Bottom" x:Name="btnRechrge" SplitText="True" Text="Recharge" Width="Auto" Height="Auto" SmallImage="../Resources/Images/recharge.png" LargeImage="../Resources/Images/recharge.png"   />
+                   
+                </telerikRibbon:RadRibbonGroup>
+            </telerikRibbon:RadRibbonTab>
+
+            <telerikRibbon:RadRibbonTab Header="Expenses" Name="TabExpenses" telerik:KeyTipService.AccessText="C">
+                <telerikRibbon:RadRibbonGroup x:Name="ExpensesGroup" Header="Reports" telerikRibbon:ScreenTip.Title="Expenses"
+						
+						DialogLauncherVisibility="Collapsed" >
+                    <telerikRibbon:RadRibbonGroup.Variants>
+                        <telerikRibbon:GroupVariant Variant="Medium" Priority="0" />
+                    </telerikRibbon:RadRibbonGroup.Variants>
+                    <telerik:RadRibbonButton Size="Large" VerticalContentAlignment="Bottom" x:Name="btnExpenses" SplitText="True" Text="Report - 1" Width="Auto" Height="Auto" SmallImage="../Resources/Images/Report.ico" LargeImage="../Resources/Images/Report.ico"   />
+
+                </telerikRibbon:RadRibbonGroup>
+            </telerikRibbon:RadRibbonTab>
+
+            <telerikRibbon:RadRibbonTab Header="Setups" Name="SetupsTab" telerik:KeyTipService.AccessText="C">
+                <telerikRibbon:RadRibbonGroup x:Name="setupgroup" Header="Setups" telerikRibbon:ScreenTip.Title="Setups"
+						telerikRibbon:ScreenTip.Description="Setups"
+						DialogLauncherVisibility="Collapsed" >
+                    <telerikRibbon:RadRibbonGroup.Variants>
+                        <telerikRibbon:GroupVariant Variant="Medium" Priority="0" />
+                    </telerikRibbon:RadRibbonGroup.Variants>
+                    <telerik:RadRibbonButton Size="Large" VerticalContentAlignment="Bottom" x:Name="btnCompany" SplitText="True" Text="Company" Width="Auto" Height="Auto" SmallImage="../Resources/Images/Report.ico" LargeImage="../Resources/Images/Report.ico" Click="btnCompany_Click_1"  />
+                    <telerik:RadRibbonButton Size="Large" VerticalContentAlignment="Bottom" x:Name="btnProduct" SplitText="True" Text="New Product" Width="Auto" Height="Auto" SmallImage="../Resources/Images/customer.jpg" LargeImage="../Resources/Images/customer.jpg"   />
+                    <telerik:RadRibbonButton Size="Large" VerticalContentAlignment="Bottom" x:Name="btnProductCategory" SplitText="True" Text="Product Category" Width="Auto" Height="Auto" SmallImage="../Resources/Images/customer.jpg" LargeImage="../Resources/Images/customer.jpg"   />
+
+                </telerikRibbon:RadRibbonGroup>
+            </telerikRibbon:RadRibbonTab>
+
+
+
+
+            <telerikRibbon:RadRibbonTab Header="Reports" Name="reportsTab" telerik:KeyTipService.AccessText="C">
+                <telerikRibbon:RadRibbonGroup x:Name="reportsgroup" Header="Reports" telerikRibbon:ScreenTip.Title="Reports"
+						telerikRibbon:ScreenTip.Description="Reports"
+						DialogLauncherVisibility="Collapsed" >
+                    <telerikRibbon:RadRibbonGroup.Variants>
+                        <telerikRibbon:GroupVariant Variant="Medium" Priority="0" />
+                    </telerikRibbon:RadRibbonGroup.Variants>
+                    <telerik:RadRibbonButton Size="Large" VerticalContentAlignment="Bottom" x:Name="btnReport1" SplitText="True" Text="Report - 1" Width="Auto" Height="Auto" SmallImage="../Resources/Images/Report.ico" LargeImage="../Resources/Images/Report.ico"   />
+                    <telerik:RadRibbonButton Size="Large" VerticalContentAlignment="Bottom" x:Name="btnReport2" SplitText="True" Text="Report - 2" Width="Auto" Height="Auto" SmallImage="../Resources/Images/Report.ico" LargeImage="../Resources/Images/Report.ico"   />
+
+                </telerikRibbon:RadRibbonGroup>
+            </telerikRibbon:RadRibbonTab>
+
+
+        </telerikRibbon:RadRibbonView>
+
+        <mdi:MdiContainer  Theme="Aero"  Grid.Row="1"  Name="MainMdiContainer">
+            </mdi:MdiContainer >
+       
+    </Grid>
+</Window>

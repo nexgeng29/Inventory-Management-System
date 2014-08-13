@@ -1,0 +1,7 @@
+D:\Dropbox - Hassan\Dropbox\Inventory Management System\IMS\Model\bin\Debug\Model.dll.config
+D:\Dropbox - Hassan\Dropbox\Inventory Management System\IMS\Model\bin\Debug\Model.dll
+D:\Dropbox - Hassan\Dropbox\Inventory Management System\IMS\Model\bin\Debug\Model.pdb
+D:\Dropbox - Hassan\Dropbox\Inventory Management System\IMS\Model\bin\Debug\EntityFramework.dll
+D:\Dropbox - Hassan\Dropbox\Inventory Management System\IMS\Model\bin\Debug\EntityFramework.xml
+D:\Dropbox - Hassan\Dropbox\Inventory Management System\IMS\Model\obj\Debug\Model.dll
+D:\Dropbox - Hassan\Dropbox\Inventory Management System\IMS\Model\obj\Debug\Model.pdb

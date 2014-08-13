@@ -1,0 +1,29 @@
+﻿<CommonUI:BaseUserControl xmlns:CommonUI="clr-namespace:NSUserControls;assembly=NSUserControls" 
+    x:Class="IMS.Views.Company"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+    xmlns:NsUserControls="clr-namespace:NSUserControls;assembly=NSUserControls"
+         Height="300" Width="300" >
+    <Grid>
+
+        <NsUserControls:NSGridView Name="RadGridView1" DataContext="{Binding DataContext}" AddRecord="RadGridView1_AddRecord_1"
+                             MinHeight="386" MaxHeight="500" Width="700">
+
+            <NsUserControls:NSGridView.Columns>
+
+                <telerik:GridViewDataColumn Header="Company Name" DataMemberBinding="{Binding Company_Name, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                <!--<telerik:GridViewDataColumn Header="Contact Name" DataMemberBinding="{Binding ContactName}" />
+                <telerik:GridViewDataColumn Header="City" DataMemberBinding="{Binding City}" />
+                <telerik:GridViewDataColumn Header="Country" DataMemberBinding="{Binding Country}" />
+                <telerik:GridViewDataColumn Header="Phone" DataMemberBinding="{Binding Phone}" />-->
+            </NsUserControls:NSGridView.Columns>
+        </NsUserControls:NSGridView>
+        <StackPanel>
+        <Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Command="{Binding ButtonCommand}" />
+        <Button Content="Button1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Command="{Binding ButtonCommand1}" />
+        </StackPanel>
+
+      
+    </Grid>
+</CommonUI:BaseUserControl>

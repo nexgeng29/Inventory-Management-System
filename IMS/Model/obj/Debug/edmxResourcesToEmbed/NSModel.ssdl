@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="NSModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="NSModelStoreContainer">
+    <EntitySet Name="Company" EntityType="NSModel.Store.Company" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="Company">
+    <Key>
+      <PropertyRef Name="Company_id" />
+    </Key>
+    <Property Name="Company_id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Company_Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
+    <Property Name="Created_By" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Creation_Date" Type="datetime" Nullable="false" />
+    <Property Name="Modified_By" Type="nvarchar" MaxLength="50" />
+    <Property Name="Modified_Date" Type="datetime" />
+    <Property Name="Active_ind" Type="bit" Nullable="false" />
+  </EntityType>
+</Schema>

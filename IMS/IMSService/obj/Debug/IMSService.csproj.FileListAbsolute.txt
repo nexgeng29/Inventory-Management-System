@@ -1,0 +1,9 @@
+D:\Dropbox - Hassan\Dropbox\Inventory Management System\IMS\IMSService\bin\IMSService.dll
+D:\Dropbox - Hassan\Dropbox\Inventory Management System\IMS\IMSService\bin\IMSService.pdb
+D:\Dropbox - Hassan\Dropbox\Inventory Management System\IMS\IMSService\bin\Model.dll
+D:\Dropbox - Hassan\Dropbox\Inventory Management System\IMS\IMSService\bin\EntityFramework.dll
+D:\Dropbox - Hassan\Dropbox\Inventory Management System\IMS\IMSService\bin\Model.pdb
+D:\Dropbox - Hassan\Dropbox\Inventory Management System\IMS\IMSService\bin\EntityFramework.xml
+D:\Dropbox - Hassan\Dropbox\Inventory Management System\IMS\IMSService\obj\Debug\IMSService.csprojResolveAssemblyReference.cache
+D:\Dropbox - Hassan\Dropbox\Inventory Management System\IMS\IMSService\obj\Debug\IMSService.dll
+D:\Dropbox - Hassan\Dropbox\Inventory Management System\IMS\IMSService\obj\Debug\IMSService.pdb

@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="NSUserControls.NSGridView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid Background="AliceBlue" x:Name="ContainerGrid"  Height="Auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="1*"/>
+
+            </Grid.RowDefinitions>
+
+            <ToolBarTray x:Name="toolbarTray" Height="30" VerticalAlignment="Center"  HorizontalAlignment="Right" AllowDrop="False" Grid.Column="1" Visibility="Visible">
+                <ToolBar Band="1" x:Name="toolBar" BandIndex="1"   AllowDrop="False" >
+
+                    <Button Name="BtnAdd" Click="BtnAdd_Click" ToolTip="Add" Visibility="Collapsed">
+                        <Image Source="/Images/Add.ico"/>
+                    </Button>
+                    <Button Name="BtnRemove" Click="BtnRemove_Click" ToolTip="Remove" Visibility="Collapsed">
+                        <Image Source="/Images/Remove.ico" />
+                    </Button>
+                    <Button Name="BtnRefresh" Click="BtnRefresh_Click" ToolTip="Reset" Visibility="Collapsed">
+                        <Image Source="/Images/Refresh.png" />
+                    </Button>
+                    <!--<Button Name="BtnExport" Click="BtnExport_Click" ToolTip="Export" Visibility="Collapsed">
+                        <Image Source="../Resources/Images/customer.jpg" />
+                    </Button>
+                    <Button Name="BtnPopup" Click="BtnPopup_Click" ToolTip="Pop Up" Visibility="Collapsed">
+                        <Image Source="../Resources/Images/customer.jpg" />
+                    </Button>-->
+
+
+                </ToolBar>
+
+            </ToolBarTray>
+
+            <telerik:RadGridView Name="dgGrid" Grid.Row="1" Grid.ColumnSpan="2" AutoGenerateColumns="False" >
+
+            </telerik:RadGridView>
+            <!--<telerik:RadDataPager   Grid.Row="2"  Name="pgrGeneric" />-->
+
+
+        </Grid>
+    </Grid>
+</UserControl>
